@@ -18,6 +18,16 @@ namespace Raspberry
         /// <summary>
         /// Processor is a BCM2709.
         /// </summary>
-        Bcm2709
+        Bcm2709,
+
+        /// <summary>
+        /// Processor is a BCM2835.
+        /// </summary>
+        Bcm2835,
+
+        ///// <summary>
+        ///// Processor is a BCM2711.
+        ///// </summary>
+        //Bcm2711               // RJL Pi4 TODO
     }
 }

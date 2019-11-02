@@ -91,6 +91,18 @@ namespace Raspberry
             {
                 Processor processor;
                 return Enum.TryParse(ProcessorName, true, out processor) ? processor : Processor.Unknown;
+                //
+                // RJL Pi4 TODO
+                // 
+                //if(Enum.TryParse(ProcessorName, true, out processor)) {
+                //    // Check to see if we're dealing with a Pi 4 Model B
+                //    // The Pi 4 Model B currently lies to us and tells us that it's a BCM2835
+                //    if(processor == Processor.Bcm2835 && Model == Model.B4)
+                //        processor = Processor.Bcm2711;
+                //
+                //    return processor;
+                //}
+                //return Processor.Unknown;
             }
         }
 
@@ -159,7 +171,7 @@ namespace Raspberry
         /// <value>
         /// The connector revision.
         /// </value>
-        /// <remarks>See <see cref="http://raspi.tv/2014/rpi-gpio-quick-reference-updated-for-raspberry-pi-b"/> for more information.</remarks>
+        /// <remarks>See <see cref='http://raspi.tv/2014/rpi-gpio-quick-reference-updated-for-raspberry-pi-b'/> for more information.</remarks>
         public ConnectorPinout ConnectorPinout
         {
             get { return connectorPinout.Value; }
@@ -243,8 +255,17 @@ namespace Raspberry
                 case 0x0093:
                     return Model.Zero;
 
+                case 0x00C1:
+                    return Model.ZeroW;
+
                 case 0x2082:
                     return Model.B3;
+
+                case 0x20A0:
+                    return Model.ComputeModule3;
+
+                //case 0x3111:
+                //    return Model.B4;
 
                 default:
                     return Model.Unknown;
@@ -267,7 +288,10 @@ namespace Raspberry
                 case Model.APlus:
                 case Model.B2:
                 case Model.Zero:
+                case Model.ZeroW:
                 case Model.B3:
+                case Model.ComputeModule3:
+                //case Model.B4:
                     return ConnectorPinout.Plus;
 
                 default:
